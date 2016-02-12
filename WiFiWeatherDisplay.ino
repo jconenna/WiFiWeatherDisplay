@@ -221,38 +221,36 @@ boolean connectWiFi() {
 }
 
 
-// Searches Serial Buffer for a term, reads in a String after term until terminator is found and returns String
+// Searches Serial Buffer for a term, reads in a String after term until terminator is found and returns the String
 String serialFind(char term[], char terminator)
 {
   String outputString = "";
   int timer = 0;
-  int i;
   
   while (!Serial.find(term)) 
-    {
+  {
       char c = Serial.read(); // find the part we are interested in.
       
-      if(timer < 100)
-      {
+      if(timer < 200)
         timer++;
-        delay(2);
-      }
-      
+  
       else 
         break;
-     }
+  }
 
-    while (i < 60000) { // 1 minute timeout checker
+  timer = 0;
+
+  while (timer < 60000) // 1 minute timeout checker
+  { 
       if (Serial.available())
       {
         char c = Serial.read();
-        if (c == terminator) break; // break out of our loop because we got all we need
+        if (c == terminator) break; // break out of our loop because we have what we need
         outputString += c; // append to our output string
-        i = 0; // reset our timeout counter
       }
-      i++;
-    }
-    
+      timer++;
+   }
+   
    return outputString;
 }
 
