@@ -193,12 +193,8 @@ void loop()
         delay(2000);
         displayHumidity(humidity);
       }
-    }
-
-    // Reset ESP8266 
-    Serial.print("AT+RST");
-    delay(5000);
-    }
+     }// if
+    }// while
 
 } // loop
 
